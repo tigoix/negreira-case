@@ -1,0 +1,1349 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>The Negreira Case: A Comprehensive Investigation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.5.0/mermaid.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#1a1a1a',
+                        secondary: '#8b5a3c',
+                        accent: '#d4af37',
+                        muted: '#6b7280',
+                        background: '#fafafa'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(139, 90, 60, 0.7) 100%);
+        }
+        .citation {
+            background: #f0f4f8;
+            border-left: 3px solid #8b5a3c;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            word-wrap: break-word;
+        }
+        .toc-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            overflow-y: auto;
+            z-index: 1000;
+            padding: 2rem 1.5rem;
+        }
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: #8b5a3c;
+            border-radius: 50%;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1.25rem;
+            width: 2px;
+            height: calc(100% + 0.5rem);
+            background: #e5e7eb;
+        }
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        /* Mermaid chart styling */
+        .mermaid-container {
+            display: flex;
+            justify-content: center;
+            min-height: 300px;
+            max-height: 800px;
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mermaid-container .mermaid {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            cursor: grab;
+            transition: transform 0.3s ease;
+            transform-origin: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .mermaid-container .mermaid svg {
+            max-width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .mermaid-container .mermaid:active {
+            cursor: grabbing;
+        }
+
+        .mermaid-container.zoomed .mermaid {
+            height: 100%;
+            width: 100%;
+            cursor: grab;
+        }
+
+        .mermaid-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .mermaid-control-btn {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #374151;
+            font-size: 14px;
+            min-width: 36px;
+            height: 36px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mermaid-control-btn:hover {
+            background: #f8fafc;
+            border-color: #3b82f6;
+            color: #3b82f6;
+            transform: translateY(-1px);
+        }
+
+        .mermaid-control-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Mermaid theme overrides for better contrast and unified styling */
+        .mermaid .node rect,
+        .mermaid .node circle,
+        .mermaid .node ellipse,
+        .mermaid .node polygon {
+            stroke: #8b5a3c !important;
+            stroke-width: 2px !important;
+        }
+        
+        .mermaid .node .label {
+            color: #1a1a1a !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+        }
+        
+        .mermaid .edgePath .path {
+            stroke: #8b5a3c !important;
+            stroke-width: 2px !important;
+        }
+        
+        .mermaid .edgeLabel {
+            background-color: white !important;
+            color: #1a1a1a !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 12px !important;
+            font-weight: 500 !important;
+            padding: 4px 8px !important;
+            border-radius: 4px !important;
+            border: 1px solid #e5e7eb !important;
+        }
+        
+        /* Timeline specific styling */
+        .mermaid .section0 {
+            fill: #f9fafb !important;
+        }
+        
+        .mermaid .section1 {
+            fill: #f3f4f6 !important;
+        }
+        
+        .mermaid .section2 {
+            fill: #e5e7eb !important;
+        }
+        
+        .mermaid .section3 {
+            fill: #d1d5db !important;
+        }
+        
+        /* Enhanced node styling for better contrast */
+        .mermaid .node0 rect { fill: #ffffff !important; }
+        .mermaid .node1 rect { fill: #f0f4f8 !important; }
+        .mermaid .node2 rect { fill: #e8f2ff !important; }
+        .mermaid .node3 rect { fill: #fff3e0 !important; }
+        .mermaid .node4 rect { fill: #fce4ec !important; }
+        .mermaid .node5 rect { fill: #e8f5e8 !important; }
+        .mermaid .node6 rect { fill: #f3e5f5 !important; }
+        .mermaid .node7 rect { fill: #e0f2f1 !important; }
+        
+        @media (max-width: 1024px) {
+            .toc-fixed {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .toc-fixed.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .mermaid-control-btn:not(.reset-zoom) {
+                display: none;
+            }
+            .mermaid-controls {
+                top: auto;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+    </style>
+  </head>
+
+  <body class="bg-background text-primary font-sans overflow-x-hidden">
+    <!-- Table of Contents -->
+    <nav class="toc-fixed" id="toc">
+      <div class="mb-6">
+        <h3 class="font-serif font-bold text-lg mb-4">Contents</h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a href="#overview" class="text-muted hover:text-secondary transition-colors">Overview</a>
+          </li>
+          <li>
+            <a href="#financial-ties" class="text-muted hover:text-secondary transition-colors">Financial Ties</a>
+          </li>
+          <li>
+            <a href="#mechanism" class="text-muted hover:text-secondary transition-colors">Mechanism of Influence</a>
+          </li>
+          <li>
+            <a href="#impact" class="text-muted hover:text-secondary transition-colors">Impact Analysis</a>
+          </li>
+          <li>
+            <a href="#legal-proceedings" class="text-muted hover:text-secondary transition-colors">Legal Proceedings</a>
+          </li>
+          <li>
+            <a href="#reactions" class="text-muted hover:text-secondary transition-colors">Official Reactions</a>
+          </li>
+          <li>
+            <a href="#testimonials" class="text-muted hover:text-secondary transition-colors">Key Perspectives</a>
+          </li>
+          <li>
+            <a href="#timeline" class="text-muted hover:text-secondary transition-colors">Timeline</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Mobile TOC Toggle -->
+    <button class="lg:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-lg shadow-lg" onclick="toggleTOC()">
+      <i class="fas fa-bars text-secondary"></i>
+    </button>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Hero Section -->
+      <section class="relative h-screen max-h-[62vh] overflow-hidden">
+        <div class="absolute inset-0">
+          <img src="https://kimi-web-img.moonshot.cn/img/cdn.britannica.com/b37065692227d66729cdb5de16587585aeaf8438.jpg" alt="Courtroom interior during a football match-fixing trial" class="w-full h-full object-cover" size="large" aspect="wide" style="photo" query="football match fixing trial courtroom" referrerpolicy="no-referrer" data-modified="1" data-score="11486.00"/>
+          <div class="hero-gradient absolute inset-0"></div>
+        </div>
+
+        <div class="relative z-10 h-full flex items-center">
+          <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div class="lg:col-span-7">
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight mb-6">
+                  The <em class="italic text-accent">Negreira</em> Case
+                </h1>
+                <p class="text-lg sm:text-xl text-gray-200 mb-8 leading-relaxed">
+                  A comprehensive investigation into FC Barcelona&#39;s €7.3 million payments to Spain&#39;s former refereeing vice-president and their impact on football integrity
+                </p>
+              </div>
+
+              <div class="lg:col-span-5">
+                <div class="bg-white/95 backdrop-blur-sm rounded-lg p-6 shadow-xl">
+                  <h3 class="font-serif text-xl font-bold mb-4 text-primary">Key Findings</h3>
+                  <div class="space-y-4">
+                    <div class="flex items-start gap-3">
+                      <i class="fas fa-euro-sign text-secondary mt-1"></i>
+                      <div>
+                        <p class="font-semibold">€7.3M - €8.4M</p>
+                        <p class="text-sm text-muted">Total payments (2001-2018)</p>
+                      </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                      <i class="fas fa-calendar text-secondary mt-1"></i>
+                      <div>
+                        <p class="font-semibold">17 Years</p>
+                        <p class="text-sm text-muted">Duration of payments</p>
+                      </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                      <i class="fas fa-gavel text-secondary mt-1"></i>
+                      <div>
+                        <p class="font-semibold">Systemic Corruption</p>
+                        <p class="text-sm text-muted">Judge&#39;s official finding</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Overview Section -->
+      <section id="overview" class="py-16 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+          <h2 class="font-serif text-4xl font-bold mb-8 text-center">Overview of the Scandal</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div>
+              <h3 class="font-serif text-2xl font-bold mb-6">Core Allegations</h3>
+              <div class="prose prose-lg max-w-none">
+                <p class="mb-4">
+                  The Negreira Case centers on substantial payments from FC Barcelona to <strong>José María Enríquez Negreira</strong>, the former Vice-President of Spain&#39;s Technical Committee of Referees (CTA), between <strong>2001 and 2018</strong>
+                  <span class="citation">
+                    <a href="https://en.wikipedia.org/wiki/Negreira_case" target="_blank">[5]</a>
+                  </span>.
+                </p>
+
+                <p class="mb-4">
+                  The total payments, ranging from <strong>€7.3 million to €8.4 million</strong>, were allegedly made to <strong>influence refereeing decisions in Barcelona&#39;s favor</strong>, compromising La Liga&#39;s integrity
+                  <span class="citation">
+                    <a href="https://en.as.com/soccer/the-prosecutor-confirms-that-barca-paid-negreira-73-million-n/" target="_blank">[52]</a>
+                  </span>.
+                </p>
+
+                <blockquote class="border-l-4 border-secondary bg-gray-50 p-6 my-6 italic">
+                  &#34;It is presumed by pure logic that FC Barcelona would not pay vice-president Negreira around 7 million euros since 2001 if they were not benefited by him&#34;
+                  <footer class="text-sm text-muted mt-2">— Judge Joaquín Aguirre López</footer>
+                </blockquote>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold mb-6">The Key Players</h3>
+              <div class="space-y-6">
+                <div class="bg-gray-50 p-6 rounded-lg">
+                  <h4 class="font-semibold text-lg mb-2">José María Enríquez Negreira</h4>
+                  <p class="text-muted text-sm mb-2">Vice-President, CTA (1994-2018)</p>
+                  <p class="text-sm">Controlled referee appointments and promotions while receiving payments from FC Barcelona</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                  <h4 class="font-semibold text-lg mb-2">FC Barcelona</h4>
+                  <p class="text-muted text-sm mb-2">Multiple presidencies (2001-2018)</p>
+                  <p class="text-sm">Claims payments were for &#34;technical reports&#34; but unable to provide documentation</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                  <h4 class="font-semibold text-lg mb-2">DASNIL 95 &amp; NILSAD</h4>
+                  <p class="text-muted text-sm mb-2">Negreira&#39;s companies</p>
+                  <p class="text-sm">Primary recipients of Barcelona&#39;s payments totaling millions</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Financial Ties Section -->
+      <section id="financial-ties" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+          <h2 class="font-serif text-4xl font-bold mb-12 text-center">Financial Ties: Scope and Scale</h2>
+
+          <!-- Payment Timeline Chart -->
+          <div class="bg-white p-8 rounded-lg shadow-lg mb-12">
+            <h3 class="font-serif text-2xl font-bold mb-6">Payment Timeline (2001-2018)</h3>
+            <div class="mermaid-container">
+              <div class="mermaid-controls">
+                <button class="mermaid-control-btn zoom-in" title="放大">
+                  <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="mermaid-control-btn zoom-out" title="缩小">
+                  <i class="fas fa-search-minus"></i>
+                </button>
+                <button class="mermaid-control-btn reset-zoom" title="重置">
+                  <i class="fas fa-expand-arrows-alt"></i>
+                </button>
+                <button class="mermaid-control-btn fullscreen" title="全屏查看">
+                  <i class="fas fa-expand"></i>
+                </button>
+              </div>
+              <div class="mermaid" id="timeline-chart">
+                timeline
+                title &#34;FC Barcelona Payments to Negreira (2001-2018)&#34;
+
+                2001 : &#34;Payments begin&#34;
+                : &#34;Total: €7.3M - €8.4M over 17 years&#34;
+
+                2014-2015 : &#34;€1,286,530&#34;
+                : &#34;54 payments for consulting&#34;
+
+                2016 : &#34;Peak period begins&#34;
+                : &#34;€532,728 to DASNIL 95&#34;
+
+                2017 : &#34;Highest single year&#34;
+                : &#34;€541,752 paid&#34;
+
+                2018 : &#34;Payments cease&#34;
+                : &#34;€318,200 paid&#34;
+                : &#34;Negreira leaves CTA&#34;
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+              <h3 class="font-serif text-2xl font-bold mb-6">Payment Breakdown</h3>
+              <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h4 class="font-semibold text-lg mb-4">Peak Period (2016-2018)</h4>
+                <div class="space-y-3">
+                  <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span>2016</span>
+                    <span class="font-semibold">€532,728</span>
+                  </div>
+                  <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span>2017</span>
+                    <span class="font-semibold">€541,752</span>
+                  </div>
+                  <div class="flex justify-between items-center py-2">
+                    <span>2018</span>
+                    <span class="font-semibold">€318,200</span>
+                  </div>
+                  <div class="border-t-2 border-secondary pt-3 mt-4">
+                    <div class="flex justify-between items-center font-bold text-lg">
+                      <span>Total (2016-2018)</span>
+                      <span class="text-secondary">€1,392,680</span>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-sm text-muted mt-4">
+                  Source: <a href="https://www.nytimes.com/athletic/4204798/2023/02/15/barcelona-referee-payments/" class="text-secondary hover:underline" target="_blank">The Athletic [54]</a>
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold mb-6">Documentation Gap</h3>
+              <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="text-center mb-6">
+                  <i class="fas fa-file-excel text-6xl text-red-500 mb-4"></i>
+                  <h4 class="font-semibold text-lg">Missing Documentation</h4>
+                </div>
+
+                <div class="space-y-4">
+                  <div class="flex items-start gap-3">
+                    <i class="fas fa-times text-red-500 mt-1"></i>
+                    <p class="text-sm">No detailed invoices for €7.3M+ payments</p>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i class="fas fa-times text-red-500 mt-1"></i>
+                    <p class="text-sm">Services allegedly provided &#34;verbally&#34;</p>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i class="fas fa-times text-red-500 mt-1"></i>
+                    <p class="text-sm">Civil Guard: &#34;arbitration advice that has not been found&#34;</p>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i class="fas fa-times text-red-500 mt-1"></i>
+                    <p class="text-sm">Reports deemed &#34;phantom reports&#34; by investigators</p>
+                  </div>
+                </div>
+
+                <p class="text-sm text-muted mt-4">
+                  Source: <a href="https://www.mundoamerica.com/news/2024/08/06/66b208c6e4d4d836538b4582.html" class="text-secondary hover:underline" target="_blank">El Mundo [16]</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mechanism Section -->
+      <section id="mechanism" class="py-16 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+          <h2 class="font-serif text-4xl font-bold mb-12 text-center">Mechanism of Alleged Influence</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <div class="bg-gray-50 p-8 rounded-lg">
+              <div class="text-center mb-6">
+                <i class="fas fa-users-cog text-4xl text-secondary mb-4"></i>
+                <h3 class="font-serif text-xl font-bold">Referee Appointments</h3>
+              </div>
+              <p class="text-sm text-muted">
+                Negreira allegedly influenced the appointment of &#34;like-minded&#34; referees for Barcelona matches, ensuring officials perceived as favorable to the club
+                <span class="citation">
+                  <a href="https://english.elpais.com/sports/2023-09-05/negreira-refereeing-case-judge-believes-evidence-points-to-systemic-corruption-in-favor-of-fc-barcelona.html" target="_blank">[116]</a>
+                </span>.
+              </p>
+            </div>
+
+            <div class="bg-gray-50 p-8 rounded-lg">
+              <div class="text-center mb-6">
+                <i class="fas fa-chart-line text-4xl text-secondary mb-4"></i>
+                <h3 class="font-serif text-xl font-bold">Career Advancement</h3>
+              </div>
+              <p class="text-sm text-muted">
+                The CTA controlled referee promotions and international appointments, creating potential leverage over officials&#39; careers and future earnings
+                <span class="citation">
+                  <a href="https://english.elpais.com/sports/2023-09-05/negreira-refereeing-case-judge-believes-evidence-points-to-systemic-corruption-in-favor-of-fc-barcelona.html" target="_blank">[116]</a>
+                </span>.
+              </p>
+            </div>
+
+            <div class="bg-gray-50 p-8 rounded-lg">
+              <div class="text-center mb-6">
+                <i class="fas fa-clipboard-list text-4xl text-secondary mb-4"></i>
+                <h3 class="font-serif text-xl font-bold">Corruption Index</h3>
+              </div>
+              <p class="text-sm text-muted">
+                An alleged &#34;corruption index&#34; was used to evaluate referees based on non-technical criteria, allowing less qualified officials to advance
+                <span class="citation">
+                  <a href="https://english.elpais.com/sports/2023-09-05/negreira-refereeing-case-judge-believes-evidence-points-to-systemic-corruption-in-favor-of-fc-barcelona.html" target="_blank">[116]</a>
+                </span>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Influence Flow Diagram -->
+          <div class="bg-gray-50 p-8 rounded-lg">
+            <h3 class="font-serif text-2xl font-bold mb-6 text-center">Alleged Influence Structure</h3>
+            <div class="mermaid-container">
+              <div class="mermaid-controls">
+                <button class="mermaid-control-btn zoom-in" title="放大">
+                  <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="mermaid-control-btn zoom-out" title="缩小">
+                  <i class="fas fa-search-minus"></i>
+                </button>
+                <button class="mermaid-control-btn reset-zoom" title="重置">
+                  <i class="fas fa-expand-arrows-alt"></i>
+                </button>
+                <button class="mermaid-control-btn fullscreen" title="全屏查看">
+                  <i class="fas fa-expand"></i>
+                </button>
+              </div>
+              <div class="mermaid" id="flow-chart">
+                graph TD
+                A[&#34;FC Barcelona Payments
+                <br/>€7.3M (2001-2018)&#34;] --&gt; B[&#34;Negreira&#39;s Companies
+                <br/>DASNIL 95 &amp; NILSAD&#34;]
+                B --&gt; C[&#34;Negreira&#39;s Position
+                <br/>CTA Vice-President&#34;]
+
+                C --&gt; D[&#34;Referee Appointments&#34;]
+                C --&gt; E[&#34;Career Promotions&#34;]
+                C --&gt; F[&#34;International Assignments&#34;]
+
+                D --&gt; G[&#34;Favorable Referees
+                <br/>for Barcelona Matches&#34;]
+                E --&gt; H[&#34;Compliant Officials
+                <br/>Receive Advancement&#34;]
+                F --&gt; I[&#34;Increased Income
+                <br/>for Selected Refs&#34;]
+
+                G --&gt; J[&#34;Alleged Favoritism
+                <br/>in Match Decisions&#34;]
+                H --&gt; J
+                I --&gt; J
+
+                J --&gt; K[&#34;Barcelona Competitive
+                <br/>Advantage&#34;]
+                K --&gt; L[&#34;Compromised League
+                <br/>Integrity&#34;]
+
+                style A fill:#e8f4f8
+                style B fill:#fff3e0
+                style C fill:#fce4ec
+                style L fill:#ffebee
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Impact Analysis -->
+      <section id="impact" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+          <h2 class="font-serif text-4xl font-bold mb-12 text-center">Impact Analysis</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+              <h3 class="font-serif text-2xl font-bold mb-6">Statistical Evidence</h3>
+              <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+                <h4 class="font-semibold text-lg mb-4">Academic Study Findings</h4>
+                <p class="mb-4">
+                  A 2024 study by Hernández Trillo and Zaragoza Rivera analyzed over two decades of La Liga data:
+                </p>
+                <blockquote class="border-l-4 border-secondary bg-gray-50 p-4 italic">
+                  &#34;The results reveal a significant positive relationship between the payments made by Barcelona FC and its competitive success, even after controlling for quality&#34;
+                </blockquote>
+                <p class="text-sm text-muted mt-4">
+                  Source: <a href="https://repositorio-digital.cide.edu/handle/11651/6144" class="text-secondary hover:underline" target="_blank">CIDE Repository [36]</a>
+                </p>
+              </div>
+
+              <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h4 class="font-semibold text-lg mb-4">Harm to Other Teams</h4>
+                <p class="mb-4">
+                  Judge Aguirre López stated that if referee assignments were manipulated, other La Liga teams from 2001-2018 must be considered injured parties
+                  <span class="citation">
+                    <a href="https://english.elpais.com/sports/2023-09-05/negreira-refereeing-case-judge-believes-evidence-points-to-systemic-corruption-in-favor-of-fc-barcelona.html" target="_blank">[116]</a>
+                  </span>.
+                </p>
+
+                <div class="flex items-center gap-4 p-4 bg-red-50 rounded-lg">
+                  <i class="fas fa-exclamation-triangle text-red-500 text-2xl"></i>
+                  <div>
+                    <p class="font-semibold">Real Madrid joined as private prosecutor</p>
+                    <p class="text-sm text-muted">Claiming status as injured party</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold mb-6">Integrity Damage</h3>
+              <div class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                  <h4 class="font-semibold text-lg mb-4 flex items-center gap-3">
+                    <i class="fas fa-whistle text-secondary"></i>
+                    Spanish Refereeing Reputation
+                  </h4>
+                  <p class="text-sm text-muted mb-3">
+                    The scandal has severely compromised the perceived impartiality of Spanish refereeing, with FIFA excluding Spanish referees from the 2025 Club World Cup
+                    <span class="citation">
+                      <a href="https://e-noticies.cat/en/soccer/world-surprise-fifa-punishes-spanish-referees-mateu-lahoz-is-to-blame" target="_blank">[92]</a>
+                    </span>.
+                  </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                  <h4 class="font-semibold text-lg mb-4 flex items-center gap-3">
+                    <i class="fas fa-trophy text-secondary"></i>
+                    Competition Fairness
+                  </h4>
+                  <p class="text-sm text-muted">
+                    The alleged systemic corruption undermines the fundamental principle of fair competition, affecting league standings, European qualification, and relegation battles
+                    <span class="citation">
+                      <a href="https://english.elpais.com/sports/2023-09-05/negreira-refereeing-case-judge-believes-evidence-points-to-systemic-corruption-in-favor-of-fc-barcelona.html" target="_blank">[116]</a>
+                    </span>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Legal Proceedings -->
+      <section id="legal-proceedings" class="py-16 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+          <h2 class="font-serif text-4xl font-bold mb-12 text-center">Legal Proceedings</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+              <h3 class="font-serif text-2xl font-bold mb-6">Current Charges</h3>
+              <div class="space-y-4">
+                <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                  <h4 class="font-semibold text-red-800">Sports Corruption</h4>
+                  <p class="text-sm text-red-700">Ongoing primary charge after bribery dismissal</p>
+                </div>
+                <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+                  <h4 class="font-semibold text-orange-800">Unfair Administration</h4>
+                  <p class="text-sm text-orange-700">Breach of trust by club officials</p>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                  <h4 class="font-semibold text-yellow-800">False Documents</h4>
+                  <p class="text-sm text-yellow-700">Falsification of commercial documents</p>
+                </div>
+              </div>
+
+              <div class="mt-8 bg-gray-50 p-6 rounded-lg">
+                <h4 class="font-semibold text-lg mb-4">Key Development (May 2024)</h4>
+                <p class="text-sm text-muted">
+                  Bribery charges were dismissed as Negreira was ruled not a public official, but sports corruption investigation continues
+                  <span class="citation">
+                    <a href="https://en.wikipedia.org/wiki/Negreira_case" target="_blank">[110]</a>
+                  </span>.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold mb-6">Investigation Findings</h3>
+
+              <div class="bg-white border-2 border-secondary p-6 rounded-lg mb-6">
+                <h4 class="font-serif text-xl font-bold mb-4">Judge Aguirre López&#39;s Ruling</h4>
+                <blockquote class="italic text-lg mb-4">
+                  &#34;Possible systemic corruption within the country&#39;s refereeing committee&#34;
+                </blockquote>
+                <p class="text-sm text-muted">
+                  September 2023 ruling based on payments&#39; scale and duration
+                  <span class="citation">
+                    <a href="https://www.ariananews.af/court-probes-possible-systemic-corruption-aiding-barca-in-referee-scandal/" target="_blank">[55]</a>
+                  </span>.
+                </p>
+              </div>
+
+              <div class="bg-white border-2 border-red-500 p-6 rounded-lg">
+                <h4 class="font-serif text-xl font-bold mb-4">Civil Guard Report</h4>
+                <div class="space-y-3">
+                  <div class="flex items-start gap-3">
+                    <i class="fas fa-file-excel text-red-500 mt-1"></i>
+                    <p class="text-sm">€7.5M paid for &#34;arbitration advice that has not been found&#34;</p>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i class="fas fa-ghost text-red-500 mt-1"></i>
+                    <p class="text-sm">Described as &#34;phantom reports&#34;</p>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i class="fas fa-money-bill text-red-500 mt-1"></i>
+                    <p class="text-sm">€3M in &#34;unjustified&#34; deposits to Negreira&#39;s wife&#39;s accounts</p>
+                  </div>
+                </div>
+                <p class="text-sm text-muted mt-4">
+                  Source: <a href="https://www.mundoamerica.com/news/2024/08/06/66b208c6e4d4d836538b4582.html" class="text-secondary hover:underline" target="_blank">El Mundo [16]</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Official Reactions -->
+      <section id="reactions" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+          <h2 class="font-serif text-4xl font-bold mb-12 text-center">Official Reactions</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+              <h3 class="font-serif text-2xl font-bold mb-6 flex items-center gap-3">
+                <img src="https://kimi-web-img.moonshot.cn/img/cdn.iconscout.com/30af4915e82dc10f6cc5b24e9f183634b8224154.png" alt="UEFA organization logo" class="w-8 h-8" size="small" aspect="square" query="UEFA logo" referrerpolicy="no-referrer" data-modified="1" data-score="11599.00"/>
+                UEFA Response
+              </h3>
+
+              <div class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                  <h4 class="font-semibold text-lg mb-3">Investigation Launch (March 2023)</h4>
+                  <p class="text-sm text-muted mb-3">
+                    UEFA announced investigation into &#34;potential violation of UEFA&#39;s legal framework&#34;
+                    <span class="citation">
+                      <a href="https://www.cnn.com/2023/03/23/football/uefa-opens-investigation-into-barcelona-caso-negreira-spt-intl" target="_blank">[108]</a>
+                    </span>.
+                  </p>
+                </div>
+
+                <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                  <h4 class="font-semibold text-blue-800 mb-3">President Čeferin&#39;s Statement</h4>
+                  <blockquote class="italic text-blue-700 mb-3">
+                    &#34;One of the most serious matters in football since I have been involved in the industry... nothing is time-barred at UEFA&#34;
+                  </blockquote>
+                  <p class="text-sm text-blue-600">
+                    Source: <a href="https://www.straitstimes.com/sport/football/barcelona-refereeing-scandal-one-of-most-serious-in-football-says-uefa-chief" class="hover:underline" target="_blank">Straits Times [67]</a>
+                  </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                  <h4 class="font-semibold text-lg mb-3">Potential Sanctions</h4>
+                  <ul class="space-y-2 text-sm text-muted">
+                    <li class="flex items-center gap-2">
+                      <i class="fas fa-minus text-red-500"></i>
+                      Fines and warnings
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <i class="fas fa-minus text-red-500"></i>
+                      Points deductions
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <i class="fas fa-minus text-red-500"></i>
+                      Competition disqualification
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <i class="fas fa-minus text-red-500"></i>
+                      Champions League exclusion
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold mb-6 flex items-center gap-3">
+                <img src="https://kimi-web-img.moonshot.cn/img/cdn-icons-png.flaticon.com/469a5b23734ecf98927e7c014a021bba0aad308b.png" alt="FIFA organization logo" class="w-8 h-8" size="small" aspect="square" query="FIFA logo" referrerpolicy="no-referrer" data-modified="1" data-score="11598.00"/>
+                FIFA Response
+              </h3>
+
+              <div class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                  <h4 class="font-semibold text-lg mb-3">Indirect Action</h4>
+                  <p class="text-sm text-muted mb-3">
+                    No direct statement on Barcelona case, but significant indirect action taken
+                  </p>
+                </div>
+
+                <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+                  <h4 class="font-semibold text-red-800 mb-3">Spanish Referees Excluded</h4>
+                  <p class="text-sm text-red-700 mb-3">
+                    FIFA excluded Spanish referees from 2025 Club World Cup, citing &#34;controversies arising from the &#39;Negreira Case&#39;&#34;
+                    <span class="citation">
+                      <a href="https://e-noticies.cat/en/soccer/world-surprise-fifa-punishes-spanish-referees-mateu-lahoz-is-to-blame" target="_blank">[92]</a>
+                    </span>.
+                  </p>
+
+                  <div class="flex items-center gap-4 p-3 bg-white rounded">
+                    <i class="fas fa-ban text-red-500 text-xl"></i>
+                    <div>
+                      <p class="font-semibold text-sm">No Spanish referees appointed</p>
+                      <p class="text-xs text-muted">Only VAR duties in Video Operation Room</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                  <h4 class="font-semibold text-lg mb-3">Interpretation</h4>
+                  <p class="text-sm text-muted">
+                    Widely interpreted as FIFA&#39;s &#34;lack of trust in LaLiga EA Sports referees&#34; due to Negreira scandal fallout
+                    <span class="citation">
+                      <a href="https://e-noticies.cat/en/soccer/world-surprise-fifa-punishes-spanish-referees-mateu-lahoz-is-to-blame" target="_blank">[92]</a>
+                    </span>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Perspectives -->
+      <section id="testimonials" class="py-16 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+          <h2 class="font-serif text-4xl font-bold mb-12 text-center">Key Perspectives</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+              <h3 class="font-serif text-2xl font-bold mb-6">Official Statements</h3>
+
+              <div class="space-y-8">
+                <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                  <h4 class="font-semibold text-blue-800 mb-3">Joan Laporta (FC Barcelona President)</h4>
+                  <blockquote class="italic text-blue-700 mb-3">
+                    &#34;Barca have never bought referees nor influence. That was never the intention and that has to be clear... a campaign to destabilize the club&#34;
+                  </blockquote>
+                  <p class="text-sm text-blue-600">
+                    Source: <a href="https://www.wandsworthguardian.co.uk/sport/national/23407347.uefa-starts-investigation-barcelona-referee-payments-scandal/" class="hover:underline" target="_blank">Wandsworth Guardian [119]</a>
+                  </p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-gray-500">
+                  <h4 class="font-semibold text-gray-800 mb-3">Josep Maria Bartomeu (Former President)</h4>
+                  <blockquote class="italic text-gray-700 mb-3">
+                    &#34;Payments were for consulting services to help players understand how to behave with certain referees... scouting the refs&#34;
+                  </blockquote>
+                  <p class="text-sm text-gray-600">
+                    Source: <a href="https://sports.yahoo.com/barcelona-referees-scandal-175741117.html" class="hover:underline" target="_blank">Yahoo Sports [48]</a>
+                  </p>
+                </div>
+
+                <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                  <h4 class="font-semibold text-green-800 mb-3">Xavier Estrada Fernández (Former Referee)</h4>
+                  <blockquote class="italic text-green-700 mb-3">
+                    Filed initial complaint against Negreira, alleging manipulation of referee rating system to favor compliant officials
+                  </blockquote>
+                  <p class="text-sm text-green-600">
+                    Source: <a href="https://english.elpais.com/sports/2023-09-05/negreira-refereeing-case-judge-believes-evidence-points-to-systemic-corruption-in-favor-of-fc-barcelona.html" target="_blank">El País [116]</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold mb-6">Real Madrid&#39;s Position</h3>
+
+              <div class="bg-white border-2 border-purple-500 p-6 rounded-lg">
+                <div class="text-center mb-6">
+                  <img src="https://kimi-web-img.moonshot.cn/img/i.pinimg.com/74a37d91e1b56abb04ab2a7546ea3417fd3e52e0.jpg" alt="Real Madrid CF club logo" class="w-16 h-16 mx-auto mb-4" size="small" aspect="square" query="Real Madrid CF logo" referrerpolicy="no-referrer" data-modified="1" data-score="11599.00"/>
+                  <h4 class="font-semibold text-lg">Joined as Private Prosecutor</h4>
+                </div>
+
+                <p class="text-sm text-muted mb-4">
+                  Real Madrid joined the prosecution as an &#34;injured party,&#34; claiming damage from alleged systemic corruption favoring Barcelona
+                  <span class="citation">
+                    <a href="https://www.catalannews.com/sports/item/uefa-open-investigation-into-barcas-referees-payments-scandal" target="_blank">[122]</a>
+                  </span>.
+                </p>
+
+                <div class="bg-purple-50 p-4 rounded-lg">
+                  <p class="text-sm text-purple-700">
+                    <strong>Legal Status:</strong> Active participant in proceedings, can present evidence and seek reparations
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-8 bg-gray-50 p-6 rounded-lg">
+                <h4 class="font-semibold text-lg mb-3">Referee Community Response</h4>
+                <p class="text-sm text-muted">
+                  Former referees allegedly referred to evaluation system as &#34;corruption index,&#34; claiming it allowed unqualified officials to advance
+                  <span class="citation">
+                    <a href="https://english.elpais.com/sports/2023-09-05/negreira-refereeing-case-judge-believes-evidence-points-to-systemic-corruption-in-favor-of-fc-barcelona.html" target="_blank">[116]</a>
+                  </span>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Timeline -->
+      <section id="timeline" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+          <h2 class="font-serif text-4xl font-bold mb-12 text-center">Timeline of Events</h2>
+
+          <div class="max-w-4xl mx-auto">
+            <div class="timeline-item">
+              <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="font-semibold text-lg mb-2">1994-2018: Negreira&#39;s CTA Tenure</h3>
+                <p class="text-sm text-muted">Served as Vice-President of Technical Committee of Referees</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="font-semibold text-lg mb-2">2001-2018: Barcelona Payments</h3>
+                <p class="text-sm text-muted">€7.3M-€8.4M paid to Negreira&#39;s companies over 17 years</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="font-semibold text-lg mb-2">May 2022: Tax Audit Discovery</h3>
+                <p class="text-sm text-muted">Spanish Tax Agency uncovers suspicious payments, refers to prosecutors</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="font-semibold text-lg mb-2">February 2023: Public Revelation</h3>
+                <p class="text-sm text-muted">Cadena SER reveals allegations; Barcelona confirms payments for &#34;technical reports&#34;</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="font-semibold text-lg mb-2">March 2023: UEFA Investigation</h3>
+                <p class="text-sm text-muted">European governing body launches formal investigation into Barcelona</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="font-semibold text-lg mb-2">September 2023: Systemic Corruption Finding</h3>
+                <p class="text-sm text-muted">Judge Aguirre López rules evidence points to &#34;systemic corruption&#34;</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="font-semibold text-lg mb-2">May 2024: Bribery Charges Dismissed</h3>
+                <p class="text-sm text-muted">Court dismisses bribery charges but continues sports corruption investigation</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="font-semibold text-lg mb-2">2024-2025: Ongoing Proceedings</h3>
+                <p class="text-sm text-muted">Investigation extended; testimonies continue; UEFA sanctions pending</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-primary text-white py-12">
+        <div class="container mx-auto px-4 md:px-8">
+          <div class="text-center">
+            <h3 class="font-serif text-2xl font-bold mb-4">The Negreira Case Investigation</h3>
+            <p class="text-gray-300 mb-6">A comprehensive analysis based on official court documents, UEFA investigations, and Spanish media reports</p>
+            <p class="text-sm text-gray-400">All data sourced from official court documents and verified news sources. Last updated: July 2025</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        document.addEventListener('DOMContentLoaded', function() {
+            mermaid.initialize({ 
+                startOnLoad: true,
+                theme: 'base',
+                themeVariables: {
+                    primaryColor: '#ffffff',
+                    primaryTextColor: '#1a1a1a',
+                    primaryBorderColor: '#8b5a3c',
+                    lineColor: '#8b5a3c',
+                    secondaryColor: '#f0f4f8',
+                    tertiaryColor: '#fff3e0',
+                    background: '#ffffff',
+                    mainBkg: '#ffffff',
+                    secondaryBkg: '#f0f4f8',
+                    tertiaryBkg: '#fff3e0',
+                    quaternaryColor: '#fce4ec',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '14px'
+                },
+                flowchart: {
+                    useMaxWidth: false,
+                    htmlLabels: true,
+                    curve: 'basis'
+                },
+                timeline: {
+                    useMaxWidth: false,
+                    padding: 20
+                }
+            });
+            
+            // Initialize Mermaid Controls for zoom and pan
+            setTimeout(() => {
+                initializeMermaidControls();
+            }, 1000);
+        });
+
+        // Initialize Mermaid Controls for zoom and pan
+        function initializeMermaidControls() {
+            const containers = document.querySelectorAll('.mermaid-container');
+
+            containers.forEach(container => {
+                const mermaidElement = container.querySelector('.mermaid');
+                let scale = 1;
+                let isDragging = false;
+                let startX, startY, translateX = 0, translateY = 0;
+
+                // 触摸相关状态
+                let isTouch = false;
+                let touchStartTime = 0;
+                let initialDistance = 0;
+                let initialScale = 1;
+                let isPinching = false;
+
+                // Zoom controls
+                const zoomInBtn = container.querySelector('.zoom-in');
+                const zoomOutBtn = container.querySelector('.zoom-out');
+                const resetBtn = container.querySelector('.reset-zoom');
+                const fullscreenBtn = container.querySelector('.fullscreen');
+
+                function updateTransform() {
+                    mermaidElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+                    if (scale > 1) {
+                        container.classList.add('zoomed');
+                    } else {
+                        container.classList.remove('zoomed');
+                    }
+
+                    mermaidElement.style.cursor = isDragging ? 'grabbing' : 'grab';
+                }
+
+                if (zoomInBtn) {
+                    zoomInBtn.addEventListener('click', () => {
+                        scale = Math.min(scale * 1.25, 4);
+                        updateTransform();
+                    });
+                }
+
+                if (zoomOutBtn) {
+                    zoomOutBtn.addEventListener('click', () => {
+                        scale = Math.max(scale / 1.25, 0.3);
+                        if (scale <= 1) {
+                            translateX = 0;
+                            translateY = 0;
+                        }
+                        updateTransform();
+                    });
+                }
+
+                if (resetBtn) {
+                    resetBtn.addEventListener('click', () => {
+                        scale = 1;
+                        translateX = 0;
+                        translateY = 0;
+                        updateTransform();
+                    });
+                }
+
+                if (fullscreenBtn) {
+                    fullscreenBtn.addEventListener('click', () => {
+                        if (container.requestFullscreen) {
+                            container.requestFullscreen();
+                        } else if (container.webkitRequestFullscreen) {
+                            container.webkitRequestFullscreen();
+                        } else if (container.msRequestFullscreen) {
+                            container.msRequestFullscreen();
+                        }
+                    });
+                }
+
+                // Mouse Events
+                mermaidElement.addEventListener('mousedown', (e) => {
+                    if (isTouch) return; // 如果是触摸设备，忽略鼠标事件
+
+                    isDragging = true;
+                    startX = e.clientX - translateX;
+                    startY = e.clientY - translateY;
+                    mermaidElement.style.cursor = 'grabbing';
+                    updateTransform();
+                    e.preventDefault();
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (isDragging && !isTouch) {
+                        translateX = e.clientX - startX;
+                        translateY = e.clientY - startY;
+                        updateTransform();
+                    }
+                });
+
+                document.addEventListener('mouseup', () => {
+                    if (isDragging && !isTouch) {
+                        isDragging = false;
+                        mermaidElement.style.cursor = 'grab';
+                        updateTransform();
+                    }
+                });
+
+                document.addEventListener('mouseleave', () => {
+                    if (isDragging && !isTouch) {
+                        isDragging = false;
+                        mermaidElement.style.cursor = 'grab';
+                        updateTransform();
+                    }
+                });
+
+                // 获取两点之间的距离
+                function getTouchDistance(touch1, touch2) {
+                    return Math.hypot(
+                        touch2.clientX - touch1.clientX,
+                        touch2.clientY - touch1.clientY
+                    );
+                }
+
+                // Touch Events - 触摸事件处理
+                mermaidElement.addEventListener('touchstart', (e) => {
+                    isTouch = true;
+                    touchStartTime = Date.now();
+
+                    if (e.touches.length === 1) {
+                        // 单指拖动
+                        isPinching = false;
+                        isDragging = true;
+
+                        const touch = e.touches[0];
+                        startX = touch.clientX - translateX;
+                        startY = touch.clientY - translateY;
+
+                    } else if (e.touches.length === 2) {
+                        // 双指缩放
+                        isPinching = true;
+                        isDragging = false;
+
+                        const touch1 = e.touches[0];
+                        const touch2 = e.touches[1];
+                        initialDistance = getTouchDistance(touch1, touch2);
+                        initialScale = scale;
+                    }
+
+                    e.preventDefault();
+                }, { passive: false });
+
+                mermaidElement.addEventListener('touchmove', (e) => {
+                    if (e.touches.length === 1 && isDragging && !isPinching) {
+                        // 单指拖动
+                        const touch = e.touches[0];
+                        translateX = touch.clientX - startX;
+                        translateY = touch.clientY - startY;
+                        updateTransform();
+
+                    } else if (e.touches.length === 2 && isPinching) {
+                        // 双指缩放
+                        const touch1 = e.touches[0];
+                        const touch2 = e.touches[1];
+                        const currentDistance = getTouchDistance(touch1, touch2);
+
+                        if (initialDistance > 0) {
+                            const newScale = Math.min(Math.max(
+                                initialScale * (currentDistance / initialDistance),
+                                0.3
+                            ), 4);
+                            scale = newScale;
+                            updateTransform();
+                        }
+                    }
+
+                    e.preventDefault();
+                }, { passive: false });
+
+                mermaidElement.addEventListener('touchend', (e) => {
+                    // 重置状态
+                    if (e.touches.length === 0) {
+                        isDragging = false;
+                        isPinching = false;
+                        initialDistance = 0;
+
+                        // 延迟重置isTouch，避免鼠标事件立即触发
+                        setTimeout(() => {
+                            isTouch = false;
+                        }, 100);
+                    } else if (e.touches.length === 1 && isPinching) {
+                        // 从双指变为单指，切换为拖动模式
+                        isPinching = false;
+                        isDragging = true;
+
+                        const touch = e.touches[0];
+                        startX = touch.clientX - translateX;
+                        startY = touch.clientY - translateY;
+                    }
+
+                    updateTransform();
+                });
+
+                mermaidElement.addEventListener('touchcancel', (e) => {
+                    isDragging = false;
+                    isPinching = false;
+                    initialDistance = 0;
+
+                    setTimeout(() => {
+                        isTouch = false;
+                    }, 100);
+
+                    updateTransform();
+                });
+
+                // Enhanced wheel zoom with better center point handling
+                container.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    const rect = container.getBoundingClientRect();
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                    const newScale = Math.min(Math.max(scale * delta, 0.3), 4);
+
+                    // Adjust translation to zoom towards center
+                    if (newScale !== scale) {
+                        const scaleDiff = newScale / scale;
+                        translateX = translateX * scaleDiff;
+                        translateY = translateY * scaleDiff;
+                        scale = newScale;
+
+                        if (scale <= 1) {
+                            translateX = 0;
+                            translateY = 0;
+                        }
+
+                        updateTransform();
+                    }
+                });
+
+                // Initialize display
+                updateTransform();
+            });
+        }
+
+        // Mobile TOC Toggle
+        function toggleTOC() {
+            const toc = document.getElementById('toc');
+            toc.classList.toggle('open');
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Close mobile TOC if open
+                    if (window.innerWidth < 1024) {
+                        document.getElementById('toc').classList.remove('open');
+                    }
+                }
+            });
+        });
+
+        // Close mobile TOC when clicking outside
+        document.addEventListener('click', function(e) {
+            const toc = document.getElementById('toc');
+            const toggleBtn = document.querySelector('button[onclick="toggleTOC()"]');
+            
+            if (window.innerWidth < 1024 && 
+                !toc.contains(e.target) && 
+                !toggleBtn.contains(e.target) && 
+                toc.classList.contains('open')) {
+                toc.classList.remove('open');
+            }
+        });
+    </script>
+  
+
+</body></html>
